@@ -1,0 +1,36 @@
+<p>hero works!</p>
+<div>Zombie heroes</div>
+
+<div class="hero">
+  <div class="hero--container">
+    <div *ngFor="let player of ZombiePlayers" class="card hero--card">
+      <img class="card-img-top hero--card--img" src="https://lh3.googleusercontent.com/d/{{ player.id }}?authuser=0"
+           (click)="openFullscreen(content, player)">
+      <div class="card-body hero--card--footer">
+        <span class="hero--card--footer--badge-1">{{ player.heroType }}</span>
+        <span class="hero--card--footer--badge-2">{{ player.affiliation }}</span>
+        <span class="hero--card--footer--badge-3">{{ player.side }}</span>
+        <span class="hero--card--footer--badge-4" *ngFor="let rol of player.rol">{{ rol }}</span>
+        <span class="hero--card--footer--badge-5">{{ player.attackRange }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="mb-3">
+          <img class="card-img-top" src="https://lh3.googleusercontent.com/d/{{ this.hero?.id }}?authuser=0" alt="Card image cap">
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+
