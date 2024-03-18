@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/bystanders-cards",
+    "/hero-cards",
+    "/home",
+    "/rules"
+  ]
+}
