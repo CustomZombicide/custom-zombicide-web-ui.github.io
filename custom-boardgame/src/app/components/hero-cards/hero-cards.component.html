@@ -1,22 +1,184 @@
-<p>hero works!</p>
-<div>Zombie heroes</div>
+<div>
+  <div class="zombie-search">
+    <!-- Search input -->
+    <div class="custom-input-container">
+      <input type="text" [formControl]="searchTextControl" placeholder="Buscar por nombre" class="input-field">
+      <button *ngIf="showXBtn" class="button" (click)="clearInput()">X</button>
+    </div>
 
-<div class="hero">
-  <div class="hero--container">
-    <div *ngFor="let player of ZombiePlayers" class="card hero--card">
-      <img class="card-img-top hero--card--img" src="https://lh3.googleusercontent.com/d/{{ player.id }}?authuser=0"
-           (click)="openFullscreen(content, player)">
-      <div class="card-body hero--card--footer">
-        <span class="hero--card--footer--badge-1">{{ player.heroType }}</span>
-        <span class="hero--card--footer--badge-2">{{ player.affiliation }}</span>
-        <span class="hero--card--footer--badge-3">{{ player.side }}</span>
-        <span class="hero--card--footer--badge-4" *ngFor="let rol of player.rol">{{ rol }}</span>
-        <span class="hero--card--footer--badge-5">{{ player.attackRange }}</span>
+    <!-- Mobile: Show advanced options button -->
+    <button class="show-filters-mobile" (click)="toggleFiltersMobile()">Opciones avanzadas</button>
+
+    <!-- Desktop: Filters -->
+    <div class="filters" *ngIf="!showFiltersMobile">
+      <h3>Filtros</h3>
+
+      <h5>Tipo de héroe</h5>
+      <div class="button-group">
+        <div *ngFor="let option of heroType">
+          <button class="option-button-1" [ngClass]="{ 'selected': selectedOptionsHeroType[option] }" (click)="toggleOption(selectedOptionsHeroType, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Afiliación</h5>
+      <div class="button-group">
+        <div *ngFor="let option of affiliation">
+          <button class="option-button-2" [ngClass]="{ 'selected': selectedOptionsAffiliation[option] }" (click)="toggleOption(selectedOptionsAffiliation, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Ocupación</h5>
+      <div class="button-group">
+        <div *ngFor="let option of side">
+          <button class="option-button-3" [ngClass]="{ 'selected': selectedOptionsSide[option] }" (click)="toggleOption(selectedOptionsSide, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Rol</h5>
+      <div class="button-group">
+        <div *ngFor="let option of role">
+          <button class="option-button-4" [ngClass]="{ 'selected': selectedOptionsRole[option] }" (click)="toggleOption(selectedOptionsRole, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Rango</h5>
+      <div class="button-group">
+        <div *ngFor="let option of atkRange">
+          <button class="option-button-5" [ngClass]="{ 'selected': selectedOptionsAtkRange[option] }" (click)="toggleOption(selectedOptionsAtkRange, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+
+      <h5>Cantidad de dados</h5>
+      <div class="button-group">
+        <div *ngFor="let option of numDice">
+          <button class="option-button-6" [ngClass]="{ 'selected': selectedOptionsNumDice[option] }" (click)="toggleOption(selectedOptionsNumDice, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Tiradas</h5>
+      <div class="button-group">
+        <div *ngFor="let option of throws">
+          <button class="option-button-7" [ngClass]="{ 'selected': selectedOptionsThrows[option] }" (click)="toggleOption(selectedOptionsThrows, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <!-- More filters... -->
+
+      <!-- Button to trigger search -->
+      <button class="search-button" (click)="test()">Buscar</button>
+    </div>
+
+    <!-- Mobile: Collapsible advanced options -->
+    <div class="filters-mobile" *ngIf="showFiltersMobile">
+      <h3>Filtros</h3>
+
+      <h5>Tipo de héroe</h5>
+      <div class="button-group">
+        <div *ngFor="let option of heroType">
+          <button class="option-button-1" [ngClass]="{ 'selected': selectedOptionsHeroType[option] }" (click)="toggleOption(selectedOptionsHeroType, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Afiliación</h5>
+      <div class="button-group">
+        <div *ngFor="let option of affiliation">
+          <button class="option-button-2" [ngClass]="{ 'selected': selectedOptionsAffiliation[option] }" (click)="toggleOption(selectedOptionsAffiliation, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Ocupación</h5>
+      <div class="button-group">
+        <div *ngFor="let option of side">
+          <button class="option-button-3" [ngClass]="{ 'selected': selectedOptionsSide[option] }" (click)="toggleOption(selectedOptionsSide, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Rol</h5>
+      <div class="button-group">
+        <div *ngFor="let option of role">
+          <button class="option-button-4" [ngClass]="{ 'selected': selectedOptionsRole[option] }" (click)="toggleOption(selectedOptionsRole, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Rango</h5>
+      <div class="button-group">
+        <div *ngFor="let option of atkRange">
+          <button class="option-button-5" [ngClass]="{ 'selected': selectedOptionsAtkRange[option] }" (click)="toggleOption(selectedOptionsAtkRange, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+
+      <h5>Cantidad de dados</h5>
+      <div class="button-group">
+        <div *ngFor="let option of numDice">
+          <button class="option-button-6" [ngClass]="{ 'selected': selectedOptionsNumDice[option] }" (click)="toggleOption(selectedOptionsNumDice, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <h5>Tiradas</h5>
+      <div class="button-group">
+        <div *ngFor="let option of throws">
+          <button class="option-button-7" [ngClass]="{ 'selected': selectedOptionsThrows[option] }" (click)="toggleOption(selectedOptionsThrows, option)">
+            {{ option }}
+          </button>
+        </div>
+      </div>
+
+      <!-- More filters... -->
+
+      <!-- Button to trigger search -->
+      <button class="search-button" (click)="test()">Buscar</button>
+    </div>
+
+    <!-- Display search results -->
+
+  </div>
+
+  <div class="hero">
+    <div class="hero--container">
+      <div *ngFor="let player of filteredZombiePlayers" class="card hero--card">
+        <img class="card-img-top hero--card--img" src="https://lh3.googleusercontent.com/d/{{ player.id }}?authuser=0"
+             (click)="openFullscreen(content, player)">
+        <div class="card-body hero--card--footer">
+          <span class="hero--card--footer--badge-1">{{ player.heroType }}</span>
+          <span class="hero--card--footer--badge-2">{{ player.affiliation }}</span>
+          <span class="hero--card--footer--badge-3">{{ player.side }}</span>
+          <span class="hero--card--footer--badge-4" *ngFor="let role of player.role">{{ role }}</span>
+          <span class="hero--card--footer--badge-5">Rango {{ player.attackRange }}</span>
+          <span class="hero--card--footer--badge-6">{{ player.numberOfDice }} dados</span>
+          <span class="hero--card--footer--badge-7">Tiradas {{ player.throws }}</span>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
 
 <ng-template #content let-modal>
   <div class="modal-content">
@@ -32,5 +194,7 @@
     </div>
   </div>
 </ng-template>
+
+
 
 

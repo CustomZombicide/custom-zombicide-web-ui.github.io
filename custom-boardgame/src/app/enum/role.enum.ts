@@ -1,4 +1,4 @@
-export enum RolEnum {
+export enum RoleEnum {
   DMG="Daño" ,
   TANK="Tanque" ,
   UTILITY="Utilidad",

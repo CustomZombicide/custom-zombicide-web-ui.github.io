@@ -1,5 +1,5 @@
 export enum SideEnum {
   VILLAIN="Villano" ,
-  HERO="Héroe" ,
+  HERO="Héroe",
   ANTIHERO="Antihéroe"
 }

@@ -1,1 +1,50 @@
+<!--header class="header-outer">
+  <div class="header-inner responsive-wrapper">
+    <div class="header-logo">
+      <img src="https://assets.codepen.io/285131/acme-2.svg" />
+    </div>
+    <nav class="header-navigation">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact Us</a>
+      <button type="button"
+              class="btn btn-outline-primary ms-2"
+              (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed"
+              aria-controls="collapseExample">
+        <img class="img-menu" src="../assets/icon/menu.png" alt=""/>
+      </button>
+    </nav>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+      <div class="card">
+        <div class="card-body">You can collapse this card by clicking one Toggle button</div>
+      </div>
+    </div>
+  </div>
+</header-->
+
+<header class="header">
+  <nav *ngIf="isWebView">
+    <ul>
+      <li><a routerLink="/">Inicio</a></li>
+      <li><a routerLink="/hero-cards">Heroes</a></li>
+      <li><a routerLink="/bystanders-cards">ByStanders</a></li>
+    </ul>
+  </nav>
+  <button *ngIf="isMobileView" (click)="toggleMenu()" class="menu-button">Menú</button>
+  <div class="mobile-menu-overlay" *ngIf="isMobileView && isMenuOpen">
+    <div class="mobile-menu">
+      <button class="close-button" (click)="toggleMenu()">Cerrar</button>
+      <ul>
+        <li><a routerLink="/" (click)="toggleMenu()">Inicio</a></li>
+        <li><a routerLink="/hero-cards" (click)="toggleMenu()">Heroes</a></li>
+        <li><a routerLink="/bystanders-cards" (click)="toggleMenu()">ByStanders</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+
+
 <router-outlet></router-outlet>
